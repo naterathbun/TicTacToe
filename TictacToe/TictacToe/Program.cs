@@ -13,20 +13,45 @@ namespace TictacToe
         {
             Board board = new Board();
 
+            /* Console.WriteLine("Do you want to play against human or AI?");
+            board.humanOrAI = Console.ReadLine();
+            
             Console.WriteLine("Enter Symbol for Player 1: ");
             board.player1Symbol = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("Enter Symbol for Player 2: ");
+            Console.WriteLine("Enter Symbol for Player 2 or AI: ");
             board.player2Symbol = Convert.ToChar(Console.ReadLine());
+            */
+            while (true)
+            {
+                board.newTurn();
 
+                while (!board.turnIsDone) //player1
+                {
+                    board.printBoard();
+                    Console.WriteLine("Player 1's Turn: Choose an unoccupied square (by number):");
+                    board.addPlayer1Symbol();
+                }
 
-            board.printBoard();
+                /*  if (board.isGameOver()_
+                    {
+                        break;
+                    } */
 
-            Console.WriteLine($"\n Player 1 Symbol: {board.player1Symbol}");
-            Console.WriteLine($"\n Player 2 Symbol: {board.player2Symbol}");
+                board.newTurn();
+                while (!board.turnIsDone) //player2
+                {
+                    board.printBoard();
+                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
+                    //board.addPlayer2Symbol();
+                }
 
-            Console.ReadLine();
-
+                /*  if (board.isGameOver()_
+                {
+                    break;
+                } */
+            }
+            Console.ReadLine(); //keep window open
         }
     }
 }
