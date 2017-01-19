@@ -33,7 +33,7 @@ namespace TictacToe.Classes
 
             while (!validInput)
             {
-                locationNum = Convert.ToInt32(Console.ReadLine());
+                int.TryParse(Console.ReadLine(),out locationNum);
                 validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
             }
 
@@ -48,7 +48,7 @@ namespace TictacToe.Classes
 
             while (!validInput)
             {
-                locationNum = Convert.ToInt32(Console.ReadLine());
+                int.TryParse(Console.ReadLine(), out locationNum);
                 validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
             }
 
