@@ -24,32 +24,31 @@ namespace TictacToe
             */
             while (true)
             {
-                board.newTurn();
 
-                while (!board.turnIsDone) //player1
+                while (!board.isTurnOver) //player1
                 {
                     board.printBoard();
                     Console.WriteLine("Player 1's Turn: Choose an unoccupied square (by number):");
-                    board.addPlayer1Symbol();
+                    board.AddPlayer1Symbol();
                 }
+
+                board.NextTurn();
+
+                while (!board.isTurnOver)
+                {
+                    board.printBoard();
+                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
+                    board.AddPlayer2Symbol();
+                }
+
+                board.NextTurn();
+
 
                 /*  if (board.isGameOver()_
                     {
                         break;
                     } */
 
-                board.newTurn();
-                while (!board.turnIsDone) //player2
-                {
-                    board.printBoard();
-                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
-                    //board.addPlayer2Symbol();
-                }
-
-                /*  if (board.isGameOver()_
-                {
-                    break;
-                } */
             }
             Console.ReadLine(); //keep window open
         }

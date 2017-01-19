@@ -12,12 +12,13 @@ namespace TictacToe.Classes
         public char player1Symbol;
         public char player2Symbol;
         //public string humanOrAI;
-        public bool turnIsDone;
+        public bool isTurnOver;
 
         public Board()                                  // blank the board
         {
             player1Symbol = 'X';
             player2Symbol = 'O';
+            isTurnOver = false;
 
             for (int i = 0; i < 9; i++)
             {
@@ -25,28 +26,44 @@ namespace TictacToe.Classes
             }
         }
 
-        public void newTurn()
+        public void AddPlayer1Symbol()
         {
-            this.turnIsDone = false;
-        }
+            int locationNum = 0;
+            bool validInput = false;
 
-        public void addPlayer1Symbol()      // takes location, if available set board[location] to player symbol, if not return false
-        {
-
-            int locationNum = Convert.ToInt32(Console.ReadLine());
-
-            // NEED TO FIND A WAY TO TAKE INPUT AND ENSURE ITS A 1 - 9 INT
-
-            if ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '))
+            while (!validInput)
             {
-                boardTally[locationNum - 1] = player1Symbol;
-                this.turnIsDone = true;
+                locationNum = Convert.ToInt32(Console.ReadLine());
+                validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
             }
+
+            boardTally[locationNum - 1] = player1Symbol;
+            isTurnOver = true;
         }
 
+        public void AddPlayer2Symbol()
+        {
+            int locationNum = 0;
+            bool validInput = false;
 
+            while (!validInput)
+            {
+                locationNum = Convert.ToInt32(Console.ReadLine());
+                validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
+            }
+
+            boardTally[locationNum - 1] = player2Symbol;
+            isTurnOver = true;
+        }
+
+        public void NextTurn()
+        {
+            this.isTurnOver = false;
+        }
+        
         public void printBoard()
         {
+            Console.Clear();
             Console.WriteLine($"\n   __________________________");
             Console.WriteLine($" /|                          |\\");
             Console.WriteLine($" ||    1    |2    |3         ||\\_____________________");
@@ -56,7 +73,7 @@ namespace TictacToe.Classes
             Console.WriteLine($" ||      {this.boardTally[3]}  |  {this.boardTally[4]}  |  {this.boardTally[5]}       ||                     ||");
             Console.WriteLine($" ||    _____|_____|_____     ||     Player 2:  {this.player2Symbol}    ||");
             Console.WriteLine($" ||    7    |8    |9         ||                     ||");
-            Console.WriteLine($" ||      {this.boardTally[0]}  |  {this.boardTally[1]}  |  {this.boardTally[2]}       || ____________________|/");
+            Console.WriteLine($" ||      {this.boardTally[6]}  |  {this.boardTally[7]}  |  {this.boardTally[8]}       || ____________________|/");
             Console.WriteLine($" ||         |     |          ||/");
             Console.WriteLine($" \\|__________________________|/\n");
         }
