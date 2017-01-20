@@ -28,13 +28,17 @@ namespace TictacToe.Classes
             }
         }
 
-        public void SetPlayerSymbols()
+        public void SetPlayerSymbols(char playerSymbol, int playerNumber)
         {
-            Console.WriteLine("Enter Symbol for Player 1: ");
-            this.player1Symbol = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("Enter Symbol for Player 2: ");
-            this.player2Symbol = Convert.ToChar(Console.ReadLine());
+            if (playerNumber == 1)
+            {
+                this.player1Symbol = playerSymbol;
+            }
+            if (playerNumber == 2)
+            {
+                this.player2Symbol = playerSymbol;
+            }
         }
 
         public void AddPlayerSymbol()
@@ -42,7 +46,7 @@ namespace TictacToe.Classes
             int locationNum = 0;
             bool validInput = false;
             int player = GetNextPlayer();
-            
+
             this.PrintBoard();
             Console.WriteLine($"Player {player}'s Turn: Choose an unoccupied square (by number):");
             while (!validInput)
@@ -180,10 +184,5 @@ namespace TictacToe.Classes
             return false;
         }
 
-        public void DeclareWinner()
-        {
-            Console.WriteLine(this.theWinner);
-            Console.ReadLine();
-        }
     }
 }

@@ -11,6 +11,8 @@ namespace TictacToe
     {
         static void Main(string[] args)
         {
+            char playerInput;
+            bool isInputValid;
             Board board = new Board();
 
             Console.WriteLine(" _____ _        _____            _____");
@@ -18,11 +20,40 @@ namespace TictacToe
             Console.WriteLine("  | | | |/ __|   | |/ _` |/ __|   | |/ _ \\ / _ \\");
             Console.WriteLine("  | | | | (__    | | (_| | (__    | | (_) |  __/");
             Console.WriteLine("  |_| |_|\\___|   |_|\\__,_|\\___|   |_|\\___/ \\___|\n");
-            board.SetPlayerSymbols();
 
-            while (true)                            
+            while (true)
             {
-                board.NextTurn();                   
+                Console.Write("Enter Symbol for Player 1: ");
+                isInputValid = char.TryParse(Console.ReadLine(), out playerInput);
+                if (playerInput == ' ')
+                {
+                    isInputValid = false;
+                }
+                if (isInputValid)
+                {
+                    board.SetPlayerSymbols(playerInput, 1);
+                    break;
+                }
+            }
+            while (true)
+            {
+                isInputValid = false;
+                Console.Write("Enter Symbol for Player 2: ");
+                isInputValid = char.TryParse(Console.ReadLine(), out playerInput);
+                if (playerInput == ' ')
+                {
+                    isInputValid = false;
+                }
+                if (isInputValid)
+                {
+                    board.SetPlayerSymbols(playerInput, 2);
+                    break;
+                }
+            }
+
+            while (true)
+            {
+                board.NextTurn();
                 while (!board.isTurnOver)
                 {
                     board.AddPlayerSymbol();
@@ -32,7 +63,8 @@ namespace TictacToe
                     break;
                 }
             }
-            board.DeclareWinner();                  
+            Console.WriteLine(board.theWinner);
+            Console.ReadLine();
         }
     }
 }
