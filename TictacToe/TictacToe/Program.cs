@@ -11,8 +11,6 @@ namespace TictacToe
     {
         static void Main(string[] args)
         {
-            char playerInput;
-            bool isInputValid;
             Board board = new Board();
 
             Console.WriteLine(" _____ _        _____            _____");
@@ -21,35 +19,8 @@ namespace TictacToe
             Console.WriteLine("  | | | | (__    | | (_| | (__    | | (_) |  __/");
             Console.WriteLine("  |_| |_|\\___|   |_|\\__,_|\\___|   |_|\\___/ \\___|\n");
 
-            while (true)
-            {
-                Console.Write("Enter Symbol for Player 1: ");
-                isInputValid = char.TryParse(Console.ReadLine(), out playerInput);
-                if (playerInput == ' ')
-                {
-                    isInputValid = false;
-                }
-                if (isInputValid)
-                {
-                    board.SetPlayerSymbols(playerInput, 1);
-                    break;
-                }
-            }
-            while (true)
-            {
-                isInputValid = false;
-                Console.Write("Enter Symbol for Player 2: ");
-                isInputValid = char.TryParse(Console.ReadLine(), out playerInput);
-                if (playerInput == ' ')
-                {
-                    isInputValid = false;
-                }
-                if (isInputValid)
-                {
-                    board.SetPlayerSymbols(playerInput, 2);
-                    break;
-                }
-            }
+            AssignSymbols(1, board);
+            AssignSymbols(2, board);
 
             while (true)
             {
@@ -65,6 +36,27 @@ namespace TictacToe
             }
             Console.WriteLine(board.theWinner);
             Console.ReadLine();
+        }
+
+        public static void AssignSymbols(int player, Board theBoard)
+        {
+            while (true)
+            {
+                char playerInput;
+                bool isInputValid;
+                Console.Write($"Enter Symbol for Player {player}: ");
+                isInputValid = char.TryParse(Console.ReadLine(), out playerInput);
+                if (playerInput == ' ')
+                {
+                    isInputValid = false;
+                }
+                if (isInputValid)
+                {
+                    theBoard.SetPlayerSymbols(playerInput, player);
+                    break;
+                }
+            }
+
         }
     }
 }
