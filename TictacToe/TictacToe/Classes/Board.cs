@@ -151,7 +151,7 @@ namespace TictacToe.Classes
         {
             foreach (char tieChar in boardTally)
             {
-                if (tieChar != ' ')
+                if (tieChar == ' ')
                 {
                     return false;
                 }
