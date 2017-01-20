@@ -13,12 +13,14 @@ namespace TictacToe.Classes
         public char player2Symbol;
         public string theWinner;
         public bool isTurnOver;
+        public int nextPlayerIs;
 
         public Board()
         {
             player1Symbol = 'X';
             player2Symbol = 'O';
             isTurnOver = false;
+            nextPlayerIs = 1;
 
             for (int i = 0; i < 9; i++)
             {
@@ -35,36 +37,46 @@ namespace TictacToe.Classes
             this.player2Symbol = Convert.ToChar(Console.ReadLine());
         }
 
-        public void AddPlayer1Symbol()
+        public void AddPlayerSymbol()
         {
             int locationNum = 0;
             bool validInput = false;
-
+            int player = GetNextPlayer();
+            
+            this.PrintBoard();
+            Console.WriteLine($"Player {player}'s Turn: Choose an unoccupied square (by number):");
             while (!validInput)
             {
                 int.TryParse(Console.ReadLine(), out locationNum);
                 validInput = ((locationNum <= 9) && (locationNum > 0) && (boardTally[locationNum - 1] == ' '));
             }
 
-            boardTally[locationNum - 1] = player1Symbol;
+            if (player == 1)
+            {
+                boardTally[locationNum - 1] = player1Symbol;
+            }
+            else
+            {
+                boardTally[locationNum - 1] = player2Symbol;
+            }
             PrintBoard();
             isTurnOver = true;
         }
 
-        public void AddPlayer2Symbol()
+        public int GetNextPlayer()
         {
-            int locationNum = 0;
-            bool validInput = false;
-
-            while (!validInput)
+            int player;
+            if (this.nextPlayerIs == 1)
             {
-                int.TryParse(Console.ReadLine(), out locationNum);
-                validInput = ((locationNum <= 9) && (locationNum > 0) && (boardTally[locationNum - 1] == ' '));
+                player = this.nextPlayerIs;
+                this.nextPlayerIs = 2;
             }
-
-            boardTally[locationNum - 1] = player2Symbol;
-            PrintBoard();
-            isTurnOver = true;
+            else
+            {
+                player = this.nextPlayerIs;
+                this.nextPlayerIs = 1;
+            }
+            return player;
         }
 
         public void NextTurn()
@@ -168,5 +180,10 @@ namespace TictacToe.Classes
             return false;
         }
 
+        public void DeclareWinner()
+        {
+            Console.WriteLine(this.theWinner);
+            Console.ReadLine();
+        }
     }
 }

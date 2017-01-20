@@ -13,39 +13,26 @@ namespace TictacToe
         {
             Board board = new Board();
 
-            /* Console.WriteLine("Do you want to play against human or AI?");
-            board.humanOrAI = Console.ReadLine();*/
-            
+            Console.WriteLine(" _____ _        _____            _____");
+            Console.WriteLine("|_   _(_) ___  |_   _|_ _  ___  |_   _|__   ___");
+            Console.WriteLine("  | | | |/ __|   | |/ _` |/ __|   | |/ _ \\ / _ \\");
+            Console.WriteLine("  | | | | (__    | | (_| | (__    | | (_) |  __/");
+            Console.WriteLine("  |_| |_|\\___|   |_|\\__,_|\\___|   |_|\\___/ \\___|\n");
+            board.SetPlayerSymbols();
 
-            
-            while (true)
+            while (true)                            
             {
-                board.NextTurn();
-                while (!board.isTurnOver) //player1
+                board.NextTurn();                   
+                while (!board.isTurnOver)
                 {
-                    board.PrintBoard();
-                    Console.WriteLine("Player 1's Turn: Choose an unoccupied square (by number):");
-                    board.AddPlayer1Symbol();
-                }
-                if (board.IsTheGameOver())
-                {
-                    break;
-                }
-
-                board.NextTurn();
-                while (!board.isTurnOver) //player2
-                {
-                    board.PrintBoard();
-                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
-                    board.AddPlayer2Symbol();
+                    board.AddPlayerSymbol();
                 }
                 if (board.IsTheGameOver())
                 {
                     break;
                 }
             }
-            Console.WriteLine(board.theWinner);
-            Console.ReadLine(); //keep window open
+            board.DeclareWinner();                  
         }
     }
 }
