@@ -14,42 +14,37 @@ namespace TictacToe
             Board board = new Board();
 
             /* Console.WriteLine("Do you want to play against human or AI?");
-            board.humanOrAI = Console.ReadLine();
+            board.humanOrAI = Console.ReadLine();*/
             
-            Console.WriteLine("Enter Symbol for Player 1: ");
-            board.player1Symbol = Convert.ToChar(Console.ReadLine());
 
-            Console.WriteLine("Enter Symbol for Player 2 or AI: ");
-            board.player2Symbol = Convert.ToChar(Console.ReadLine());
-            */
+            
             while (true)
             {
-
+                board.NextTurn();
                 while (!board.isTurnOver) //player1
                 {
-                    board.printBoard();
+                    board.PrintBoard();
                     Console.WriteLine("Player 1's Turn: Choose an unoccupied square (by number):");
                     board.AddPlayer1Symbol();
                 }
-
-                board.NextTurn();
-
-                while (!board.isTurnOver)
+                if (board.IsTheGameOver())
                 {
-                    board.printBoard();
-                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
-                    board.AddPlayer2Symbol();
+                    break;
                 }
 
                 board.NextTurn();
-
-
-                /*  if (board.isGameOver()_
-                    {
-                        break;
-                    } */
-
+                while (!board.isTurnOver) //player2
+                {
+                    board.PrintBoard();
+                    Console.WriteLine("Player 2's Turn: Choose an unoccupied square (by number):");
+                    board.AddPlayer2Symbol();
+                }
+                if (board.IsTheGameOver())
+                {
+                    break;
+                }
             }
+            Console.WriteLine(board.theWinner);
             Console.ReadLine(); //keep window open
         }
     }

@@ -11,10 +11,10 @@ namespace TictacToe.Classes
         public List<char> boardTally = new List<char>();
         public char player1Symbol;
         public char player2Symbol;
-        //public string humanOrAI;
+        public string theWinner;
         public bool isTurnOver;
 
-        public Board()                                  // blank the board
+        public Board()
         {
             player1Symbol = 'X';
             player2Symbol = 'O';
@@ -26,6 +26,15 @@ namespace TictacToe.Classes
             }
         }
 
+        public void SetPlayerSymbols()
+        {
+            Console.WriteLine("Enter Symbol for Player 1: ");
+            this.player1Symbol = Convert.ToChar(Console.ReadLine());
+
+            Console.WriteLine("Enter Symbol for Player 2: ");
+            this.player2Symbol = Convert.ToChar(Console.ReadLine());
+        }
+
         public void AddPlayer1Symbol()
         {
             int locationNum = 0;
@@ -33,11 +42,12 @@ namespace TictacToe.Classes
 
             while (!validInput)
             {
-                int.TryParse(Console.ReadLine(),out locationNum);
-                validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
+                int.TryParse(Console.ReadLine(), out locationNum);
+                validInput = ((locationNum <= 9) && (locationNum > 0) && (boardTally[locationNum - 1] == ' '));
             }
 
             boardTally[locationNum - 1] = player1Symbol;
+            PrintBoard();
             isTurnOver = true;
         }
 
@@ -49,10 +59,11 @@ namespace TictacToe.Classes
             while (!validInput)
             {
                 int.TryParse(Console.ReadLine(), out locationNum);
-                validInput = ((locationNum <= 9) && (locationNum >= 0) && (boardTally[locationNum] == ' '));
+                validInput = ((locationNum <= 9) && (locationNum > 0) && (boardTally[locationNum - 1] == ' '));
             }
 
             boardTally[locationNum - 1] = player2Symbol;
+            PrintBoard();
             isTurnOver = true;
         }
 
@@ -60,8 +71,8 @@ namespace TictacToe.Classes
         {
             this.isTurnOver = false;
         }
-        
-        public void printBoard()
+
+        public void PrintBoard()
         {
             Console.Clear();
             Console.WriteLine($"\n   __________________________");
@@ -77,5 +88,85 @@ namespace TictacToe.Classes
             Console.WriteLine($" ||         |     |          ||/");
             Console.WriteLine($" \\|__________________________|/\n");
         }
+
+        public bool DidPlayerWin(int player)
+        {
+            char playerChar;
+            if (player == 1)
+            {
+                playerChar = player1Symbol;
+            }
+            else
+            {
+                playerChar = player2Symbol;
+            }
+            if ((boardTally[0] == playerChar) && (boardTally[1] == playerChar) && (boardTally[2] == playerChar))
+            {
+                return true; // top row
+            }
+            else if ((boardTally[3] == playerChar) && (boardTally[4] == playerChar) && (boardTally[5] == playerChar))
+            {
+                return true; // middle row
+            }
+            else if ((boardTally[6] == playerChar) && (boardTally[7] == playerChar) && (boardTally[8] == playerChar))
+            {
+                return true; // bottom row
+            }
+            else if ((boardTally[0] == playerChar) && (boardTally[3] == playerChar) && (boardTally[6] == playerChar))
+            {
+                return true; // left col
+            }
+            else if ((boardTally[1] == playerChar) && (boardTally[4] == playerChar) && (boardTally[7] == playerChar))
+            {
+                return true; // middle col
+            }
+            else if ((boardTally[2] == playerChar) && (boardTally[5] == playerChar) && (boardTally[8] == playerChar))
+            {
+                return true; // right col
+            }
+            else if ((boardTally[2] == playerChar) && (boardTally[4] == playerChar) && (boardTally[6] == playerChar))
+            {
+                return true; // bottom left to top right
+            }
+            else if ((boardTally[0] == playerChar) && (boardTally[4] == playerChar) && (boardTally[8] == playerChar))
+            {
+                return true; // top left to bottom rgiht
+            }
+            return false;
+        }
+
+        public bool IsThereATie()
+        {
+            foreach (char tieChar in boardTally)
+            {
+                if (tieChar != ' ')
+                {
+                    return false;
+                }
+            }
+            return true;
+        }
+
+        public bool IsTheGameOver()
+        {
+
+            if (DidPlayerWin(1))
+            {
+                theWinner = "Player 1 is the winner!!!";
+                return true;
+            }
+            if (DidPlayerWin(2))
+            {
+                theWinner = "Player 2 is the winner!!!";
+                return true;
+            }
+            if (IsThereATie())
+            {
+                theWinner = "It's a tie, no one wins!!!";
+                return true;
+            }
+            return false;
+        }
+
     }
 }
